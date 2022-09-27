@@ -23,8 +23,10 @@ namespace Employee_Management_system.Controller
         internal static void createEmployee(List<Employee> empList)
         {
             bool found;
-            Console.WriteLine("\nEnter employee id:");
-            int empId = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine("\nEnter employee id:");
+            //int empId = Convert.ToInt32(Console.ReadLine());
+
+            string empId = ServiceInterface!.generateID();
 
             found = ServiceInterface!.findEmployee(empList, empId);
 
@@ -56,7 +58,7 @@ namespace Employee_Management_system.Controller
         {
             // bool found = false;
             Console.WriteLine("\nEnter employee id to search");
-            int empId = Convert.ToInt32(Console.ReadLine());
+            string? empId = Console.ReadLine();
             
             bool found = ServiceInterface!.findEmployee(empList, empId);
             if (!found)
@@ -73,7 +75,7 @@ namespace Employee_Management_system.Controller
         {
             //bool found = false;
             Console.WriteLine("\nEnter employee id to update...");
-            int empId = Convert.ToInt32(Console.ReadLine());
+            string? empId = Console.ReadLine();
 
             bool found = ServiceInterface!.updateEmployee(empList, empId);
             if (!found)
@@ -90,7 +92,7 @@ namespace Employee_Management_system.Controller
         {
            // bool found = false;
             Console.WriteLine("\nEnter employee id to delete: ");
-            int empId = Convert.ToInt32(Console.ReadLine());
+            string? empId = Console.ReadLine();
 
             bool found = ServiceInterface!.deleteEmployee(empList, empId);
             if (found)

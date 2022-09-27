@@ -11,9 +11,9 @@ namespace Employee_Management_system.Service
 
     class ServiceEmployee : ServiceInterface
     {
-         bool ServiceInterface.createEmployee(List<Employee> empList, int empId)
+         bool ServiceInterface.createEmployee(List<Employee> empList, string? empId)
         {
-            Console.WriteLine("Enter employee name:");
+            Console.WriteLine("\nEnter employee name:");
             string? empName = Console.ReadLine();
 
             Console.WriteLine("Enter employee age:");
@@ -34,20 +34,20 @@ namespace Employee_Management_system.Service
 
         void ServiceInterface.findEmployees(List<Employee> empList)
         {
-            Console.WriteLine("\n|{0,-10}|{1,-15}|{2,-10}|{3,-15}|", "Id", "Name", "Age", "Phone number");
+            Console.WriteLine("\n|{0,-33}|{1,-15}|{2,-10}|{3,-15}|", "Id", "Name", "Age", "Phone number");
             foreach (Employee emp in empList)
             {
                 emp.employeeDetails();
             }
         }
 
-        bool ServiceInterface.findEmployee(List<Employee> empList, int empId)
+        bool ServiceInterface.findEmployee(List<Employee> empList, string? empId)
         {
             foreach (Employee e in empList)
             {
                 if (e.EmployeeId == empId)
                 {
-                    Console.WriteLine("\n|{0,-10}|{1,-15}|{2,-10}|{3,-15}|", "Id", "Name", "Age", "Phone number");
+                    Console.WriteLine("\n|{0,-33}|{1,-15}|{2,-10}|{3,-15}|", "Id", "Name", "Age", "Phone number");
                     e.employeeDetails();
                     return true;
                 }
@@ -55,7 +55,7 @@ namespace Employee_Management_system.Service
             return false;
         }
 
-        bool ServiceInterface.updateEmployee(List<Employee> empList, int empId)
+        bool ServiceInterface.updateEmployee(List<Employee> empList, string? empId)
         {
             int ch;
             bool update = false;
@@ -63,57 +63,82 @@ namespace Employee_Management_system.Service
             {
                 if (e.EmployeeId == empId)
                 {
-                    do
-                    {
-                        if (update)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\n");
-                            Console.WriteLine("""
-                            1. Change name
-                            2. Change age
-                            3. Change phone number
-                            4. Exit
-                            """);
-                            Console.WriteLine("Choose you want to change...");
-                            ch = Convert.ToInt32(Console.ReadLine());
 
-                            switch (ch)
-                            {
-                                case 1:
-                                    Console.WriteLine("\nEnter new name: ");
-                                    string? name = Console.ReadLine();
-                                    e.EmployeeName = name;
-                                    update = true;
-                                    break;
-                                case 2:
-                                    Console.WriteLine("\nEnter new age: ");
-                                    int age = Convert.ToInt32(Console.ReadLine());
-                                    e.EmployeeAge = age;
-                                    update = true;
-                                    break;
-                                case 3:
-                                    Console.WriteLine("\nEnter new phone numeber: ");
-                                    string? phone = Console.ReadLine();
-                                    e.EmpPhoneNumber = phone;
-                                    update = true;
-                                    break;
-                                default:
-                                    return update;
-                            }
+                    Console.WriteLine(
+                            """
+                            1. Bulk update
+                            2. Individual field update
+                            3. Exit
+                            """
+                            );
+                    Console.WriteLine("Enter your choice: ");
+                    ch = Convert.ToInt32(Console.ReadLine());
+                    if (ch == 1)
+                    {
+                        Console.WriteLine("\nEnter new name: ");
+                        string? name = Console.ReadLine();
+                        e.EmployeeName = name;
+
+                        Console.WriteLine("\nEnter new age: ");
+                        int age = Convert.ToInt32(Console.ReadLine());
+                        e.EmployeeAge = age;
+
+                        Console.WriteLine("\nEnter new phone numeber: ");
+                        string? phone = Console.ReadLine();
+                        e.EmpPhoneNumber = phone;
+
+                        update = true;
+                        return update;
+                    }
+                    else if(ch == 2)
+                    {
+                        
+                      
+                        Console.WriteLine("\n");
+                        Console.WriteLine("""
+                        1. Change name
+                        2. Change age
+                        3. Change phone number
+                        4. Exit
+                        """);
+                        Console.WriteLine("Choose you want to change...");
+                        ch = Convert.ToInt32(Console.ReadLine());
+
+                        switch (ch)
+                        {
+                            case 1:
+                                Console.WriteLine("\nEnter new name: ");
+                                string? name = Console.ReadLine();
+                                e.EmployeeName = name;
+                                update = true;
+                                break;
+                            case 2:
+                                Console.WriteLine("\nEnter new age: ");
+                                int age = Convert.ToInt32(Console.ReadLine());
+                                e.EmployeeAge = age;
+                                update = true;
+                                break;
+                            case 3:
+                                Console.WriteLine("\nEnter new phone numeber: ");
+                                string? phone = Console.ReadLine();
+                                e.EmpPhoneNumber = phone;
+                                update = true;
+                                break;
+                            default:
+                                return update;
                         }
                         
-                    } while (ch != 4);
-                    return update;
+                    }
+                    else
+                    {
+                        return update;
+                    }
                 }
             }
             return update;
         }
 
-        bool ServiceInterface.deleteEmployee(List<Employee> empList, int empId)
+        bool ServiceInterface.deleteEmployee(List<Employee> empList, string? empId)
         {
             try
             {
@@ -125,6 +150,11 @@ namespace Employee_Management_system.Service
             {
                 return false;
             }
+        }
+
+        string ServiceInterface.generateID()
+        {
+            return Guid.NewGuid().ToString("N");
         }
     }
 }
